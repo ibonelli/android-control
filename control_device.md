@@ -135,7 +135,7 @@ Where 82 is the MENU_BUTTON. Here you have the [full keyevents codes see list](h
 
 ## Some examples
 
-Tap X,Y position:
+**Tap X,Y position:**
 
 ```
 adb shell input tap 500 1450
@@ -143,7 +143,7 @@ adb shell input tap 500 1450
 
 To find the exact X,Y position you want to Tap go to: Settings > Developer Options > Check the option POINTER SLOCATION
 
-Swipe X1 Y1 X2 Y2 [duration(ms)]:
+**Swipe X1 Y1 X2 Y2 [duration(ms)]:**
 
 ```
 adb shell input swipe 100 500 100 1450 100
@@ -151,7 +151,7 @@ adb shell input swipe 100 500 100 1450 100
 
 in this example X1=100, Y1=500, X2=100, Y2=1450, Duration = 100ms
 
-LongPress X Y:
+**LongPress X Y:**
 
 ```
 adb shell input swipe 100 500 100 500 250
