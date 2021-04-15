@@ -10,8 +10,8 @@ else:
 	fname = sys.argv[1]
 	# '/home/ignacio/Nextcloud/Android-Celus/MotoG4/x_filtered.png'
 	# '/home/ignacio/Nextcloud/Android-Celus/MotoG4/launch_icon.png'
-	#screencap = './screencap.png'
-	screencap = '/home/ignacio/Downloads/KINGSTON/Android/screencap.png'
+	#screencap = '/home/ignacio/Downloads/KINGSTON/Android/screencap.png'
+	screencap = './downloads/screencap.png'
 
 img = cv2.imread(screencap, cv2.IMREAD_GRAYSCALE)
 template = cv2.imread(fname, cv2.IMREAD_GRAYSCALE)
@@ -25,4 +25,5 @@ min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 if max_val >= 0.9:
 	print(str(max_loc[0]) + " " + str(max_loc[1]))
 else:
-	print("Couldn't not find image with a certainty level > 0,9")
+	# Couldn't not find image with a certainty level > 0,9
+	print("NoPosition")

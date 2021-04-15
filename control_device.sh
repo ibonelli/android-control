@@ -1,23 +1,28 @@
 #!/bin/bash
 
-APP_PATH="/home/ignacio/Nextcloud/Android-Celus/MotoG4/"
-CMD="python3 ${APP_PATH}find_img_v2.py"
-HOME="/home/ignacio/Nextcloud/Android-Celus/MotoG4/launch_icon.png"
-CLOSE="/home/ignacio/Nextcloud/Android-Celus/MotoG4/x_filtered.png"
-HOME_COORDS="869 1003"
+APP_PATH="./"
+SCREENCAP_PATH="./download"
+CMD="python3 ${APP_PATH}find_img.py"
+HOME="./imgs/launch_icon.png"
+CLOSE1="./imgs/x_filtered_v1.png"
+CLOSE2="./imgs/x_filtered_v2.png"
+CLOSE3="./imgs/x_filtered_v3.png"
+NOT_FOUND="NoPosition"
 RUNS=1
 RESULT=1
 
 function verify_homescreen {
 	## We verify we land back into the homescreen
+	pushd ${SCREENCAP_PATH}
 	adb shell screencap -p /sdcard/Download/screencap.png ; adb pull /sdcard/Download/screencap.png
+	popd
 	sleep 1
 	FOUND_COORDS=`${CMD} ${HOME}`
-	if [[ ${HOME_COORDS} == ${FOUND_COORDS} ]]
+	if [[ ${HOME_COORDS} == ${NOT_FOUND} ]]
 	then
-		return 1
-	else
 		return 0
+	else
+		return 1
 	fi
 }
 
@@ -39,13 +44,28 @@ function get_reward {
 	sleep 40
 
 	# Find the closing X position
+	pushd ${SCREENCAP_PATH}
 	adb shell screencap -p /sdcard/Download/screencap.png ; adb pull /sdcard/Download/screencap.png
+	popd
 	sleep 1
-	POS=`${CMD} ${CLOSE}`
+	POS=`${CMD} ${CLOSE1}`
+	if [[ ${POS} == ${NOT_FOUND} ]]
+	then
+		POS=`${CMD} ${CLOSE2}`
+		if [[ ${POS} == ${NOT_FOUND} ]]
+		then
+			POS=`${CMD} ${CLOSE3}`
+		fi
+	fi
 	sleep 2
 
 	# screencap04.png - Find the closing X position
-	adb shell input tap ${POS}
+	if [[ ${POS} == ${NOT_FOUND} ]]
+	then
+		echo "Could not find the image..."
+	else
+		adb shell input tap ${POS}
+	fi
 	sleep 5
 
 	### Click power to close app
