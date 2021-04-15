@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP_PATH="./"
-SCREENCAP_PATH="./download"
+SCREENCAP_PATH="./downloads"
 CMD="python3 ${APP_PATH}find_img.py"
 HOME="./imgs/launch_icon.png"
 CLOSE1="./imgs/x_filtered_v1.png"
@@ -85,6 +85,8 @@ function get_reward {
 	RESULT=$?
 	return ${RESULT}
 }
+
+mkdir -p ${SCREENCAP_PATH}
 
 while [[ 1 == ${RESULT} ]]
 do
